@@ -47,8 +47,8 @@ Nota: *Na imagem acima está um Screenshot da tela de boas vindas da aplicação
 - [X] Read / Write Process Memory v1.0
 - [ ] Array of byte/AOB Scan 
 
-## References :notebook:
-- Documentação do Projeto (Em Breve) – [Wiki](https://github.com/guilhermelim/Process-Memory-Tools)
+## References
+- :notebook: Documentação do Projeto (Em Breve) – [Wiki](https://github.com/guilhermelim/Process-Memory-Tools)
 
 
 ## Autor
