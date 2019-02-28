@@ -21,7 +21,7 @@ Nota: Na imagem acima está um Screenshot da tela de boas vindas da aplicação.
   * Windows 10
 
 ## Referências :notebook:
-- Wiki do Projeto (Em Breve) – [WinProdKeyFinder](https://github.com/guilhermelim/Process-Memory-Tools)
+- Documentação do Projeto (Em Breve) – [Wiki](https://github.com/guilhermelim/Process-Memory-Tools)
 
 
 ## Autor
@@ -29,11 +29,11 @@ Nota: Na imagem acima está um Screenshot da tela de boas vindas da aplicação.
 
 
 ## Créditos
-*Mentor:* [SmoLL-iCe](https://github.com/SmoLL-iCe)
-Solucionador de dúvidas e erros: `Define, Devecchi, Luan Devecchi, EuPoder, Bolard, Walison.`
+- __Mentor:__ [SmoLL-iCe](https://github.com/SmoLL-iCe)
+- __Solucionador de dúvidas e erros:__ `Define, Devecchi, Luan Devecchi, EuPoder, Bolard, Walison.`
 
 [Discord { Code Building }](https://discord.gg/tDbJQ4K)
-Discord Guilherme Lima: `Guilherme Lima 👑#2384`
+__Discord Guilherme Lima:__ *`Guilherme Lima 👑#2384`*
 
 ## License
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://raw.githubusercontent.com/guilhermelim/Process-Memory-Tools/master/LICENSE)
