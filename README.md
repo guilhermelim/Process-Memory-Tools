@@ -2,7 +2,7 @@
 [![forthebadge](https://forthebadge.com/images/badges/made-with-c-plus-plus.svg)](https://forthebadge.com)
 
 ### Apresentação
-Manipule processos em execução em sua memória RAM. Este projeto escrito em C++ destina-se a todos que precisam ler/escrever na memória de um determinado processo em execução no Windows.
+> Manipule processos em execução em sua memória RAM. Este projeto escrito em C++ destina-se a todos que precisam ler/escrever na memória de um determinado processo em execução no Windows.
 
 ![Print UI](README/print.png)
 Nota: Na imagem acima está um Screenshot da tela de boas vindas da aplicação. Nada vos impede que seja alterada ou excluída posteriormente em seus projetos.
@@ -29,7 +29,7 @@ Nota: Na imagem acima está um Screenshot da tela de boas vindas da aplicação.
 
 
 ## Créditos
-Mentor: [SmoLL-iCe](https://github.com/SmoLL-iCe)
+*Mentor:* [SmoLL-iCe](https://github.com/SmoLL-iCe)
 Solucionador de dúvidas e erros: `Define, Devecchi, Luan Devecchi, EuPoder, Bolard, Walison.`
 
 [Discord { Code Building }](https://discord.gg/tDbJQ4K)
