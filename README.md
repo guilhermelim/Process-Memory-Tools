@@ -6,7 +6,7 @@
     <a href="#Apresentação">Apresentação</a> &bull;
     <a href="#Requisitos">Requisitos</a> &bull;
     <a href="#Features">Features/Características</a> &bull;
-    <a href="#Referências :notebook:">Referências :notebook:</a>
+    <a href="#References :notebook:">References :notebook:</a>
 </p>
 -------
 
@@ -47,7 +47,7 @@ Nota: *Na imagem acima está um Screenshot da tela de boas vindas da aplicação
 - [X] Read / Write Process Memory v1.0
 - [ ] Array of byte/AOB Scan 
 
-## Referências :notebook:
+## References :notebook:
 - Documentação do Projeto (Em Breve) – [Wiki](https://github.com/guilhermelim/Process-Memory-Tools)
 
 
