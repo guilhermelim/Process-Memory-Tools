@@ -31,9 +31,8 @@ Nota: Na imagem acima está um Screenshot da tela de boas vindas da aplicação.
 ## Créditos
 - __Mentor:__ [SmoLL-iCe](https://github.com/SmoLL-iCe)
 - __Solucionador de dúvidas e erros:__ `Define, Devecchi, Luan Devecchi, EuPoder, Bolard, Walison.`
-
-[Discord { Code Building }](https://discord.gg/tDbJQ4K)
-__Discord Guilherme Lima:__ *`Guilherme Lima 👑#2384`*
+- __Discord Guilherme Lima:__ *`Guilherme Lima 👑#2384`*
+- __Discord__ [{ Code Building }](https://discord.gg/tDbJQ4K)
 
 ## License
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://raw.githubusercontent.com/guilhermelim/Process-Memory-Tools/master/LICENSE)
