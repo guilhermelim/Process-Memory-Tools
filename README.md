@@ -5,8 +5,8 @@
 <p align="center">
     <a href="#Apresentação">Apresentação</a> &bull;
     <a href="#Requisitos">Requisitos</a> &bull;
-    <a href="#Features/Características">Features/Características</a> &bull;
-    <a href="#Referências">Referências</a>
+    <a href="#Features">Features/Características</a> &bull;
+    <a href="#Referências :notebook:">Referências</a>
 </p>
 -------
 
@@ -32,7 +32,7 @@ Nota: *Na imagem acima está um Screenshot da tela de boas vindas da aplicação
 | Windows 8/8.1       |         ✔        |         ✔        |
 | Windows 10          |         ✔        |         ✔        |
 
-## Features/Características
+## Features
 - [X] Suporte Nativo a Processos x86 e x64 (automatic)
 - [X] Listagem de Processos em execução no sistema
 - [X] Listagem de Modulos de um Processo especificado
