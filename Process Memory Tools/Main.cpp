@@ -24,7 +24,7 @@
 //		• Write Process Memory											- WriteProcess(DWORD _ProcessID, uintptr_t _BaseAddress, uintptr_t _buffer) OR WriteProcess(HANDLE _ProcessHandle, uintptr_t _BaseAddress, uintptr_t _buffer)
 //																			Obs: Você pode escolher utilizar como parametro: _ProcessID ou _ProcessHandle do processo.
 //
-//		Creditos:
+//		CRÉDITOS:
 //		Programador						-> Guilherme Lima
 //		Mentor							-> SmoLL_iCe
 //		Solucionador de dúvidas e erros -> Define, Devecchi, Luan Devecchi, EuPoder, Bolard, Walison.
@@ -130,23 +130,19 @@ void HotkeyPressThread() {
 
 int main()
 {
-	SetTitle();
+	SetTitle_Dois();
+	
+
+
+	/*
 	// Inicia o MemoryTools
 	const char PROCESS_NAME[] = "Gw2-64.exe";
 	PROCESS_ID = GetProcessID(PROCESS_NAME);
 	printf("Proces Name: %s\t\tPID: %d\n", PROCESS_NAME, PROCESS_ID);
 
-	printf("Lista ListProcess\n");
-	//ListProcess();
-	
-	printf("Lista ListProcessModules\n");
-	//ListProcessModules(PROCESS_ID);
+	printf("• Listagem de processos em execução no sistema\n");
+	ListProcess();
 
-	printf("Lista ListThreads\n");
-	ListThreads(PROCESS_ID);
-
-
-	/*
 	// Inicia Hotkeys
 	SuspendThread();
 	ResumeThread();
