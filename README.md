@@ -10,7 +10,7 @@ Nota: *Na imagem acima está um Screenshot da tela de boas vindas da aplicação
 ## Requisitos
 * IDE do Visual Studio - Para abrir e compilar o projeto ([Download](https://visualstudio.microsoft.com/pt-br/))
 
-- __Supported Operating Systems__
+- __Sistemas Operacionais Suportados__
 
 |  Operating Systems  | Supported 32-bit | Supported 64-bit |
 |:-------------------:|:----------------:|:----------------:|
