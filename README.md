@@ -10,15 +10,18 @@ Nota: *Na imagem acima está um Screenshot da tela de boas vindas da aplicação
 ## Requisitos
 * IDE do Visual Studio - Para abrir e compilar o projeto ([Download](https://visualstudio.microsoft.com/pt-br/))
 
-* Supported Operating Systems (32- and 64-bit)
-  * Windows XP SP3
-  * Windows Server 2003
-  * Windows Vista
-  * Windows Server 2008
-  * Windows 7
-  * Windows Server 2012
-  * Windows 8/8.1
-  * Windows 10
+- __Supported Operating Systems__
+
+|  Operating Systems  | Supported 32-bit | Supported 64-bit |
+|:-------------------:|:----------------:|:----------------:|
+| Windows XP SP3      |         ✔        |         ✔        |
+| Windows Server 2003 |         ✔        |         ✔        |
+| Windows Vista       |         ✔        |         ✔        |
+| Windows Server 2008 |         ✔        |         ✔        |
+| Windows 7           |         ✔        |         ✔        |
+| Windows Server 2012 |         ✔        |         ✔        |
+| Windows 8/8.1       |         ✔        |         ✔        |
+| Windows 10          |         ✔        |         ✔        |
 
 ## Features/Características
 - [X] Suporte Nativo a Processos x86 e x64 (automatic)
