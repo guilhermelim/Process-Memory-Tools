@@ -5,7 +5,7 @@
 > Manipule processos em execução em sua memória RAM. Este projeto escrito em C++ destina-se a todos que precisam ler/escrever na memória de um determinado processo em execução no Windows.
 
 ![Print UI](README/print.png)
-Nota: Na imagem acima está um Screenshot da tela de boas vindas da aplicação. Nada vos impede que seja alterada ou excluída posteriormente em seus projetos.
+Nota: *Na imagem acima está um Screenshot da tela de boas vindas da aplicação. Nada vos impede que seja alterada ou excluída posteriormente em seus projetos.*
 
 ## Requisitos
 * IDE do Visual Studio - Para abrir e compilar o projeto ([Download](https://visualstudio.microsoft.com/pt-br/))
