@@ -35,7 +35,7 @@ Manipule processos em execução em sua memória RAM. Este projeto escrito em C+
 | Windows 10          |         ✔        |         ✔        |
 
 ## Features
-- [X] Suporte Nativo a Processos x86 e x64 (automatic)
+- [X] Suporte Nativo a processos x86 e x64 (automatic)
 - [X] Listagem de Processos em execução no sistema
 - [X] Listagem de Modulos de um Processo especificado
 - [X] Listagem de Threads de um Processo especificado
