@@ -48,7 +48,7 @@ Nota: *Na imagem acima está um Screenshot da tela de boas vindas da aplicação
 - [ ] Array of byte/AOB Scan 
 
 ## References
-- :notebook: Documentação do Projeto (Em Breve) – [Wiki](https://github.com/guilhermelim/Process-Memory-Tools)
+- Documentação do Projeto (Em Breve) – :notebook: [Wiki](https://github.com/guilhermelim/Process-Memory-Tools)
 
 
 ## Autor
