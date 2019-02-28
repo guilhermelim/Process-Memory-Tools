@@ -21,7 +21,6 @@ Nota: *Na imagem acima está um Screenshot da tela de boas vindas da aplicação
   * Windows 10
 
 ## Features/Características
-FEATURES
 - [X] Suporte Nativo a Processos x86 e x64 (automatic)
 - [X] Listagem de Processos em execução no sistema
 - [X] Listagem de Modulos de um Processo especificado
