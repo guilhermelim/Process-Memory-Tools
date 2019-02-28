@@ -39,7 +39,7 @@ Manipule processos em execução em sua memória RAM. Este projeto escrito em C+
 - [X] Listagem de Processos em execução no sistema
 - [X] Listagem de Modulos de um Processo especificado
 - [X] Listagem de Threads de um Processo especificado
-- [X] Get ID de um Processo especificado (comumente chamado de PID)
+- [X] Get ID de um Processo especificado (Comumente chamado de PID)
 - [X] Get Handle de um Processo especificado
 - [X] Get base address de um Modulo especificado
 - [X] Get tamanho de um Modulo especificado
