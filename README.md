@@ -6,7 +6,7 @@
     <a href="#Apresentação">Apresentação</a> &bull;
     <a href="#Requisitos">Requisitos</a> &bull;
     <a href="#Features">Features/Características</a> &bull;
-    <a href="#References :notebook:">References :notebook:</a>
+    <a href="#References">References</a>
 </p>
 -------
 
