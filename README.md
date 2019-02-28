@@ -47,7 +47,7 @@ Manipule processos em execução em sua memória RAM. Este projeto escrito em C+
 - [X] Suspende a execução das Threads de um Processo especificado
 - [X] Retoma a execução das Threads de um Processo especificado
 - [X] Read / Write Process Memory v1.0
-- [ ] Array of byte/AOB Scan 
+- [ ] Array of byte / AOB Scan 
 
 ## References
 - Documentação do Projeto (Em Breve) – :notebook: [Wiki](https://github.com/guilhermelim/Process-Memory-Tools)
