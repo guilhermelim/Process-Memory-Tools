@@ -20,8 +20,7 @@ Manipule processos em execução em sua memória RAM. Este projeto escrito em C+
 > __Nota:__ *Na imagem acima está um Screenshot da tela de boas vindas da aplicação. Nada vos impede que seja alterada ou excluída posteriormente em seus projetos.*
 
 ## Requisitos
-* IDE do Visual Studio - Para abrir e compilar o projeto ([Download](https://visualstudio.microsoft.com/pt-br/))
-
+- __IDE do Visual Studio__ - Para abrir e compilar o projeto ([Download](https://visualstudio.microsoft.com/pt-br/))
 - __Sistemas Operacionais Suportados__
 
 |  Operating Systems  | Supported 32-bit | Supported 64-bit |
