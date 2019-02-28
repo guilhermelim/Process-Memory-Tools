@@ -10,5 +10,11 @@
 #define PCH_H
 
 // TODO: adicione cabeçalhos que você deseja pré-compilar aqui
+#pragma once
+#include "targetver.h"
+
+#include <stdio.h>
+#include <tchar.h>
+
 
 #endif //PCH_H
