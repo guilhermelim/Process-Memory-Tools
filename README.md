@@ -20,6 +20,22 @@ Nota: *Na imagem acima está um Screenshot da tela de boas vindas da aplicação
   * Windows 8/8.1
   * Windows 10
 
+## Features/Características
+FEATURES
+- [X] Suporte Nativo a Processos x86 e x64 (automatic)
+- [X] Listagem de Processos em execução no sistema
+- [X] Listagem de Modulos de um Processo especificado
+- [X] Listagem de Threads de um Processo especificado
+- [X] Get ID de um Processo especificado (comumente chamado de PID)
+- [X] Get Handle de um Processo especificado
+- [X] Get base address de um Modulo especificado
+- [X] Get tamanho de um Modulo especificado
+- [X] Get base address de um Ponteiro especificado
+- [X] Suspende a execução das Threads de um Processo especificado
+- [X] Retoma a execução das Threads de um Processo especificado
+- [X] Read / Write Process Memory v1.0
+- [ ] Array of byte/AOB Scan 
+
 ## Referências :notebook:
 - Documentação do Projeto (Em Breve) – [Wiki](https://github.com/guilhermelim/Process-Memory-Tools)
 
