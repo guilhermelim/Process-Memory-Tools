@@ -3,7 +3,7 @@
 #include <iostream>
 
 /*
-	Você pode criar modelhos personalisados de UI atráves do site http://patorjk.com/software/taag.
+	Você pode criar modelos personalizados de UI através do site http://patorjk.com/software/taag.
 	Recomendo utilizar as seguintes configurações:
 	Font: ANSI Shadow
 	Character Width: Full
@@ -58,8 +58,3 @@ void SetTitle() {
 	printf(" • Read Process Memory\n");
 	printf(" • Write Process Memory\n");
 }
-
-
-
-
-

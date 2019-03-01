@@ -40,9 +40,8 @@
 //      ██║██║ ╚████║╚██████╗███████╗╚██████╔╝██████╔╝███████╗███████║
 //      ╚═╝╚═╝  ╚═══╝ ╚═════╝╚══════╝ ╚═════╝ ╚═════╝ ╚══════╝╚══════╝
 #include "pch.h"
-#include "MemoryTools.h"
 #include "UI.h"
-
+#include "MemoryTools.h"
 
 //
 //      ██╗   ██╗ █████╗ ██████╗ ██╗ █████╗ ██████╗ ██╗     ███████╗███████╗
@@ -54,7 +53,7 @@
 //                              - Program Settings -
 using namespace std;
 
-DWORD PROCESS_ID;
+DWORD PROCESS_ID;					// Está variável é responsável por armazenar o ID do Processo que você deseja acessar.
 BOOL  dwFlagThreadsStatus = true;	// Flag de Status de Threads (TRUE -> ResumeThreads | FALSE -> SuspendThreads)
 
 //
@@ -137,8 +136,8 @@ void HotkeyPressThread() {
 
 int main()
 {
-	// Aprensenta uma UI de Welcome na inicializacao
-	SetTitle_lithe(); // - Altera o modelo de acordo com sua preferencia no header UI.h
+	// Apresenta uma UI de Welcome na inicialização
+	SetTitle_lithe(); // Você pode alterar o modelo de acordo com sua preferencia no header UI.h
 	
 	// Declarando o Process Memory Tools
 	const char PROCESS_NAME[] = "Game.exe";		// Digite o nome do seu processo.
@@ -158,5 +157,5 @@ int main()
 	printf("Hotkey SuspendThread: ATIVADA");
 	printf("Hotkey ResumeThread: ATIVADA");
 	
-	getchar();									// Espera até que alguma tecla sejá precionada.
+	getchar();									// Espera até que alguma tecla seja pressionada.
 }
