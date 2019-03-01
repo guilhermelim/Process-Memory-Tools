@@ -1,3 +1,4 @@
+//	Main.cpp : define o ponto de entrada para o aplicativo do console.
 //
 //       ██████╗ ██████╗ ██████╗ ███████╗    ██████╗ ██╗   ██╗██╗██╗     ██████╗ ██╗███╗   ██╗ ██████╗ 
 //      ██╔════╝██╔═══██╗██╔══██╗██╔════╝    ██╔══██╗██║   ██║██║██║     ██╔══██╗██║████╗  ██║██╔════╝ 
@@ -8,20 +9,21 @@
 //
 //											Process Memory Tools C++
 //		FEATURES
-//		• Listagem de processos em execução no sistema					- ListProcess();
-//		• Listagem de Modulos em execução de um Processo				- ListProcessModules(DWORD _ProcessID)
-//		• Listagem de Threads em execução de um Processo especificado	- ListThreads(DWORD _ProcessID)
-//		• Get ID do Processo especificado								- GetProcessID(const char _ProcessName[])
-//		• Get Handle Process											- GetProcessHandle(DWORD _ProcessID)
+//		• Suporte Nativo a processos x86 e x64 (automatic)
+//		• Listagem de Processos em execução no sistema					- ListProcess();
+//		• Listagem de Modulos de um Processo especificado				- ListProcessModules(DWORD _ProcessID)
+//		• Listagem de Threads de um Processo especificado				- ListThreads(DWORD _ProcessID)
+//		• Get ID de um Processo especificado (Comumente chamado de PID)	- GetProcessID(const char _ProcessName[])
+//		• Get Handle de um Processo especificado						- GetProcessHandle(DWORD _ProcessID)
 //		• Get base address de um Modulo especificado					- GetModuleBaseAddress(DWORD _ProcessID, const char _ModuleName[])
 //		• Get tamanho de um Modulo especificado							- GetModuleBaseSize(DWORD _ProcessID, const char _ModuleName[])
 //		• Get base address de um Ponteiro especificado					- GetPointerBaseAddress(DWORD _ProcessID, HANDLE _ProcessHandle, const char _MooduleBase[], uintptr_t _Pointer, vector<uintptr_t> &_Offsets)
 //																			Obs: Você pode escolher utilizar como parametro: _ProcessID ou _ProcessHandle do processo.
 //		• Suspende a execução das Threads de um Processo especificado	- void SuspendThreads(DWORD _ProcessID)
 //		• Retoma a execução das Threads de um Processo especificado		- ResumeThreads(DWORD _ProcessID)
-//		• Read Process Memory											- ReadProcess(DWORD _ProcessID, uintptr_t _BaseAddress) OR ReadProcess(HANDLE _ProcessHandle, uintptr_t _BaseAddress) 
+//		• Read Process Memory v1.0										- ReadProcess(DWORD _ProcessID, uintptr_t _BaseAddress) OR ReadProcess(HANDLE _ProcessHandle, uintptr_t _BaseAddress) 
 //																			Obs: Você pode escolher utilizar como parametro: _ProcessID ou _ProcessHandle do processo.
-//		• Write Process Memory											- WriteProcess(DWORD _ProcessID, uintptr_t _BaseAddress, uintptr_t _buffer) OR WriteProcess(HANDLE _ProcessHandle, uintptr_t _BaseAddress, uintptr_t _buffer)
+//		• Write Process Memory v1.0										- WriteProcess(DWORD _ProcessID, uintptr_t _BaseAddress, uintptr_t _buffer) OR WriteProcess(HANDLE _ProcessHandle, uintptr_t _BaseAddress, uintptr_t _buffer)
 //																			Obs: Você pode escolher utilizar como parametro: _ProcessID ou _ProcessHandle do processo.
 //
 //		CRÉDITOS:
@@ -38,11 +40,9 @@
 //      ██║██║ ╚████║╚██████╗███████╗╚██████╔╝██████╔╝███████╗███████║
 //      ╚═╝╚═╝  ╚═══╝ ╚═════╝╚══════╝ ╚═════╝ ╚═════╝ ╚══════╝╚══════╝
 #include "pch.h"
-#include <iostream>
 #include "MemoryTools.h"
 #include "UI.h"
-#include <Windows.h>
-#include <thread>
+
 
 //
 //      ██╗   ██╗ █████╗ ██████╗ ██╗ █████╗ ██████╗ ██╗     ███████╗███████╗
@@ -57,6 +57,13 @@ using namespace std;
 DWORD PROCESS_ID;
 BOOL  dwFlagThreadsStatus = true;	// Flag de Status de Threads (TRUE -> ResumeThreads | FALSE -> SuspendThreads)
 
+//
+//      ██╗  ██╗ ██████╗ ████████╗██╗  ██╗███████╗██╗   ██╗███████╗
+//      ██║  ██║██╔═══██╗╚══██╔══╝██║ ██╔╝██╔════╝╚██╗ ██╔╝██╔════╝
+//      ███████║██║   ██║   ██║   █████╔╝ █████╗   ╚████╔╝ ███████╗
+//      ██╔══██║██║   ██║   ██║   ██╔═██╗ ██╔══╝    ╚██╔╝  ╚════██║
+//      ██║  ██║╚██████╔╝   ██║   ██║  ██╗███████╗   ██║   ███████║
+//      ╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝
 #pragma region Hotkeys
 void HotkeySuspend() {
 	bool CheckPress;
@@ -130,37 +137,26 @@ void HotkeyPressThread() {
 
 int main()
 {
-	SetTitle_Dois();
+	// Aprensenta uma UI de Welcome na inicializacao
+	SetTitle_lithe(); // - Altera o modelo de acordo com sua preferencia no header UI.h
 	
+	// Declarando o Process Memory Tools
+	const char PROCESS_NAME[] = "Game.exe";		// Digite o nome do seu processo.
+	PROCESS_ID = GetProcessID(PROCESS_NAME);	// Pega o PID do processo especificado.
 
+	if (PROCESS_ID == 0) {						// Verifica se o processo existe.
+		printf(" O processo '%s' não está em execução, abra e tente novamente!", PROCESS_NAME);
+		getchar();
+		return 0;								// Fecha o programa caso o processo não sejá encontrado.
+	}
 
-	/*
-	// Inicia o MemoryTools
-	const char PROCESS_NAME[] = "Gw2-64.exe";
-	PROCESS_ID = GetProcessID(PROCESS_NAME);
-	printf("Proces Name: %s\t\tPID: %d\n", PROCESS_NAME, PROCESS_ID);
-
-	printf("• Listagem de processos em execução no sistema\n");
-	ListProcess();
-
-	// Inicia Hotkeys
+	printf("Processo encontrado!\nNome: %s\t\tPID: %d\n", PROCESS_NAME, PROCESS_ID);
+	
+	// Inicia Hotkeys Para Pausar e Retomar as Threads do processo.
 	SuspendThread();
 	ResumeThread();
-
-	// Leitura
-	uintptr_t endereco = GetModuleBaseAddress(PROCESS_ID, "Gw2-64.exe") + 0x1E47E54;
-	printf("Endereco: %I64X\n", endereco);
-	printf("Valor:    %d\n", ReadProcess<uintptr_t>(PROCESS_ID, endereco));
-
-	// Escrita
-	WriteProcess(PROCESS_ID, endereco, 77777); // Escreve
-	printf("Valor agora: %d\n", ReadProcess<uintptr_t>(PROCESS_ID, endereco));
-
-	// Ler Ponteiro
-	vector<uintptr_t> ponteiro_offsets = { 0x1A0, 0xD0 };
-	uintptr_t ponteiro = GetPointerBaseAddress(PROCESS_ID, "Gw2-64.exe", 0x01D9B9D0, ponteiro_offsets);
-	printf("Ponteiro Endereço: %I64X\n", ponteiro);
-	*/
-
-	getchar();
+	printf("Hotkey SuspendThread: ATIVADA");
+	printf("Hotkey ResumeThread: ATIVADA");
+	
+	getchar();									// Espera até que alguma tecla sejá precionada.
 }

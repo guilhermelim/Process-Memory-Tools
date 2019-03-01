@@ -16,5 +16,10 @@
 #include <stdio.h>
 #include <tchar.h>
 
+// Incluedes Padrões para Funcionamento correto do Main.cpp
+#include <iostream>
+#include <Windows.h>
+#include <thread>
+
 
 #endif //PCH_H

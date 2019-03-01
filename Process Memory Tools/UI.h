@@ -2,21 +2,32 @@
 #include <Windows.h>
 #include <iostream>
 
-void SetTitle_Um() {
+/*
+	Você pode criar modelhos personalisados de UI atráves do site http://patorjk.com/software/taag.
+	Recomendo utilizar as seguintes configurações:
+	Font: ANSI Shadow
+	Character Width: Full
+	Character Height: Full
+	Link de Test: http://patorjk.com/software/taag/#p=display&h=0&v=0&f=ANSI%20Shadow&t=TEST
+
+*/
+
+void SetTitle_lithe() {
 	SetConsoleTitle("Process Memory Tools C++ - Family { CODE BUILDING }");
 	system("color 0A");
 
-	printf("    ######   #######  ########  ########    ########  ##     ## #### ##       ########  #### ##    ##  ######   \n");
-	printf("   ##    ## ##     ## ##     ## ##          ##     ## ##     ##  ##  ##       ##     ##  ##  ###   ## ##    ##  \n");
-	printf("   ##       ##     ## ##     ## ##          ##     ## ##     ##  ##  ##       ##     ##  ##  ####  ## ##        \n");
-	printf("   ##       ##     ## ##     ## ######      ########  ##     ##  ##  ##       ##     ##  ##  ## ## ## ##   #### \n");
-	printf("   ##       ##     ## ##     ## ##          ##     ## ##     ##  ##  ##       ##     ##  ##  ##  #### ##    ##  \n");
-	printf("   ##    ## ##     ## ##     ## ##          ##     ## ##     ##  ##  ##       ##     ##  ##  ##   ### ##    ##  \n");
-	printf("    ######   #######  ########  ########    ########   #######  #### ######## ########  #### ##    ##  ######   \n");
-	printf("                                            Guilherme Lima - Hacker\n");
+	printf("\n");
+	printf("       ██████╗ ██████╗ ██████╗ ███████╗    ██████╗ ██╗   ██╗██╗██╗     ██████╗ ██╗███╗   ██╗ ██████╗ \n");
+	printf("      ██╔════╝██╔═══██╗██╔══██╗██╔════╝    ██╔══██╗██║   ██║██║██║     ██╔══██╗██║████╗  ██║██╔════╝ \n");
+	printf("      ██║     ██║   ██║██║  ██║█████╗      ██████╔╝██║   ██║██║██║     ██║  ██║██║██╔██╗ ██║██║  ███╗\n");
+	printf("      ██║     ██║   ██║██║  ██║██╔══╝      ██╔══██╗██║   ██║██║██║     ██║  ██║██║██║╚██╗██║██║   ██║\n");
+	printf("      ╚██████╗╚██████╔╝██████╔╝███████╗    ██████╔╝╚██████╔╝██║███████╗██████╔╝██║██║ ╚████║╚██████╔╝\n");
+	printf("       ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝    ╚═════╝  ╚═════╝ ╚═╝╚══════╝╚═════╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝ \n");
+	printf("                            Process Memory Tools C++ - Family { CODE BUILDING }\n");
+	printf("\n");
 }
 
-void SetTitle_Dois() {
+void SetTitle() {
 	SetConsoleTitle("Process Memory Tools C++ - Family { CODE BUILDING }");
 	system("color 0A");
 	printf("\n");

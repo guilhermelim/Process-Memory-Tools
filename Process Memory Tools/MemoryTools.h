@@ -1,5 +1,4 @@
 #pragma once
-// Guild Wars 2 Hacker.cpp : define o ponto de entrada para o aplicativo do console.
 //
 //       ██████╗ ██████╗ ██████╗ ███████╗    ██████╗ ██╗   ██╗██╗██╗     ██████╗ ██╗███╗   ██╗ ██████╗ 
 //      ██╔════╝██╔═══██╗██╔══██╗██╔════╝    ██╔══██╗██║   ██║██║██║     ██╔══██╗██║████╗  ██║██╔════╝ 
@@ -10,19 +9,24 @@
 //
 //											Process Memory Tools C++
 //		FEATURES
-//		• Listagem de processos em execução no sistema
-//		• Listagem de Modulos em execução de um Processo
-//		• Listagem de Threads em execução de um Processo especificado
-//		• Get ID do Processo especificado
-//		• Get Handle Process
-//		• Get base address de um Modulo especificado
-//		• Get tamanho de um Modulo especificado
-//		• Get base address de um Ponteiro especificado
-//		• Suspende a execução das Threads de um Processo especificado
-//		• Retoma a execução das Threads de um Processo especificado
-//		• Read / Write Process Memory
+//		• Suporte Nativo a processos x86 e x64 (automatic)
+//		• Listagem de Processos em execução no sistema					- ListProcess();
+//		• Listagem de Modulos de um Processo especificado				- ListProcessModules(DWORD _ProcessID)
+//		• Listagem de Threads de um Processo especificado				- ListThreads(DWORD _ProcessID)
+//		• Get ID de um Processo especificado (Comumente chamado de PID)	- GetProcessID(const char _ProcessName[])
+//		• Get Handle de um Processo especificado						- GetProcessHandle(DWORD _ProcessID)
+//		• Get base address de um Modulo especificado					- GetModuleBaseAddress(DWORD _ProcessID, const char _ModuleName[])
+//		• Get tamanho de um Modulo especificado							- GetModuleBaseSize(DWORD _ProcessID, const char _ModuleName[])
+//		• Get base address de um Ponteiro especificado					- GetPointerBaseAddress(DWORD _ProcessID, HANDLE _ProcessHandle, const char _MooduleBase[], uintptr_t _Pointer, vector<uintptr_t> &_Offsets)
+//																			Obs: Você pode escolher utilizar como parametro: _ProcessID ou _ProcessHandle do processo.
+//		• Suspende a execução das Threads de um Processo especificado	- void SuspendThreads(DWORD _ProcessID)
+//		• Retoma a execução das Threads de um Processo especificado		- ResumeThreads(DWORD _ProcessID)
+//		• Read Process Memory v1.0										- ReadProcess(DWORD _ProcessID, uintptr_t _BaseAddress) OR ReadProcess(HANDLE _ProcessHandle, uintptr_t _BaseAddress) 
+//																			Obs: Você pode escolher utilizar como parametro: _ProcessID ou _ProcessHandle do processo.
+//		• Write Process Memory v1.0										- WriteProcess(DWORD _ProcessID, uintptr_t _BaseAddress, uintptr_t _buffer) OR WriteProcess(HANDLE _ProcessHandle, uintptr_t _BaseAddress, uintptr_t _buffer)
+//																			Obs: Você pode escolher utilizar como parametro: _ProcessID ou _ProcessHandle do processo.
 //
-//		Creditos:
+//		CRÉDITOS:
 //		Programador						-> Guilherme Lima
 //		Mentor							-> SmoLL_iCe
 //		Solucionador de dúvidas e erros -> Define, Devecchi, Luan Devecchi, EuPoder, Bolard, Walison.
