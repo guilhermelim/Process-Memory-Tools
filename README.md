@@ -54,7 +54,7 @@ Manipule processos em execução em sua memória RAM. Este projeto escrito em C+
 - [ ] Array of byte / AOB Scan 
 
 ## References
-- Documentação do Projeto (Em Breve) – :notebook: [Wiki Pages](https://github.com/guilhermelim/Process-Memory-Tools/wiki/Introdu%C3%A7%C3%A3o)
+- Documentação do Projeto (Em Breve) – :notebook: [Wiki Pages](https://github.com/guilhermelim/Process-Memory-Tools/wiki)
 
 
 ## Autor
