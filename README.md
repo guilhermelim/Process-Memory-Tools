@@ -1,7 +1,10 @@
 # Process Memory Tools
+<h3 align="center">
+  <img src="README/Process Memory Tools.png" alt="Screenshot da Aplicação" />
+</h3>
+
 -------
 <p align="center">
-    <img src="README/Process Memory Tools.png" alt="Screenshot da Aplicação" />
     <a href="#Apresentação">Apresentação</a> &bull;
     <a href="#Requisitos">Requisitos</a> &bull;
     <a href="#Features">Features</a> &bull;
