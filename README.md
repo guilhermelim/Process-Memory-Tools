@@ -1,6 +1,6 @@
 # Process Memory Tools
 <h3 align="center">
-  <img src="README/Process Memory Tools capa.png" alt="Screenshot da Aplicação" />
+  <img src="README/Process Memory Tools capa.png" alt="Logomarca" />
 </h3>
 
 -------
