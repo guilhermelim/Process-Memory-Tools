@@ -303,12 +303,22 @@ template<typename T> T ReadProcess(DWORD _ProcessID, uintptr_t _BaseAddress) {
 	return Retorno;
 }
 //		• Write Process Memory
+/*
 void WriteProcess(HANDLE _ProcessHandle, uintptr_t _BaseAddress, uintptr_t _buffer) {
 	//SIZE_T NumberOfBytesToRead = 4;
 	SIZE_T NumberOfBytesToRead = sizeof(_buffer);
 	WriteProcessMemory(_ProcessHandle, (LPVOID)_BaseAddress, &_buffer, NumberOfBytesToRead, NULL);
 }
 void WriteProcess(DWORD _ProcessID, uintptr_t _BaseAddress, uintptr_t _buffer) {
+	//SIZE_T NumberOfBytesToRead = 4;
+	HANDLE processHandle = GetProcessHandle(_ProcessID);
+	SIZE_T NumberOfBytesToRead = sizeof(_buffer);
+	WriteProcessMemory(processHandle, (LPVOID)_BaseAddress, &_buffer, NumberOfBytesToRead, NULL);
+	CloseHandle(processHandle); // Fecha o Handle aberto
+}
+*/
+
+template<typename T> void WriteProcess(DWORD _ProcessID, uintptr_t _BaseAddress, T _buffer) {
 	//SIZE_T NumberOfBytesToRead = 4;
 	HANDLE processHandle = GetProcessHandle(_ProcessID);
 	SIZE_T NumberOfBytesToRead = sizeof(_buffer);

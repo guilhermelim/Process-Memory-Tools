@@ -134,13 +134,51 @@ void HotkeyPressThread() {
 }
 #pragma endregion
 
+
+// Endereços das coordenadas do player
+vector<uintptr_t> coorX_adr_offsets;
+uintptr_t coorX_adr;
+
+vector<uintptr_t> coorY_adr_offsets;
+uintptr_t coorY_adr;
+
+vector<uintptr_t> coorZ_adr_offsets;
+uintptr_t coorZ_adr;
+
+// Endereços das coordenadas da camera
+vector<uintptr_t> cameX_adr_offsets;
+uintptr_t cameX_adr;
+
+vector<uintptr_t> cameY_adr_offsets;
+uintptr_t cameY_adr;
+
+void GetEnderecos() {
+	// Endereços das coordenadas do player
+	coorX_adr_offsets = { 0xE8, 0x90, 0x48, 0xE0, 0x120 };
+	coorX_adr = GetPointerBaseAddress(PROCESS_ID, "Gw2-64.exe", 0x020C6E78, coorX_adr_offsets);
+
+	coorY_adr_offsets = { 0xE8, 0x90, 0x48, 0xE0, 0x124 };
+	coorY_adr = GetPointerBaseAddress(PROCESS_ID, "Gw2-64.exe", 0x020C6E78, coorY_adr_offsets);
+
+	coorZ_adr_offsets = { 0xE8, 0x90, 0x48, 0xE0, 0x128 };
+	coorZ_adr = GetPointerBaseAddress(PROCESS_ID, "Gw2-64.exe", 0x020C6E78, coorZ_adr_offsets);
+
+	// Endereços das coordenadas da camera
+	cameX_adr_offsets = { 0x98, 0x1A8, 0x128, 0x120 };
+	cameX_adr = GetPointerBaseAddress(PROCESS_ID, "Gw2-64.exe", 0x020D4D48, cameX_adr_offsets);
+
+	cameY_adr_offsets = { 0x98, 0x1A8, 0x128, 0x140 };
+	cameY_adr = GetPointerBaseAddress(PROCESS_ID, "Gw2-64.exe", 0x020D4D48, cameY_adr_offsets);
+}
+
+
 int main()
 {
 	// Apresenta uma UI de Welcome na inicialização
 	SetTitle_lithe(); // Você pode alterar o modelo de acordo com sua preferencia no header UI.h
 	
 	// Declarando o Process Memory Tools
-	const char PROCESS_NAME[] = "Game.exe";		// Digite o nome do seu processo.
+	const char PROCESS_NAME[] = "Gw2-64.exe";		// Digite o nome do seu processo.
 	PROCESS_ID = GetProcessID(PROCESS_NAME);	// Pega o PID do processo especificado.
 
 	if (PROCESS_ID == 0) {						// Verifica se o processo existe.
@@ -154,8 +192,24 @@ int main()
 	// Inicia Hotkeys Para Pausar e Retomar as Threads do processo.
 	SuspendThread();
 	ResumeThread();
-	printf("Hotkey SuspendThread: ATIVADA");
-	printf("Hotkey ResumeThread: ATIVADA");
+	printf("Hotkey SuspendThread: ATIVADA\n");
+	printf("Hotkey ResumeThread: ATIVADA\n\n");
+	GetEnderecos();
+
+	while (true) {
+		Sleep(300);
+		//			Codigo do Haker
+		// Declaração de Variáveis do Hacker
+		float speed = 6;
+		// Calcula Inclinações e Velocidade
+
+		if (GetAsyncKeyState(VK_SHIFT) < 0) {
+			printf("Apertou SHIFT!\n");
+
+			WriteProcess(PROCESS_ID, coorZ_adr, ReadProcess<float>(PROCESS_ID, coorZ_adr) - speed);
+		}
+	}
+
 	
 	getchar();									// Espera até que alguma tecla seja pressionada.
 }
