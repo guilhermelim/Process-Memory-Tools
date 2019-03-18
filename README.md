@@ -63,7 +63,7 @@ Manipule processos em execução em sua memória RAM. Este projeto escrito em C+
 
 ## Créditos
 - __Mentor:__ [SmoLL-iCe](https://github.com/SmoLL-iCe)
-- __Solucionador de dúvidas e erros:__ `Define, Devecchi, Luan Devecchi, EuPoder, Bolard, Walison.`
+- __Solucionador de dúvidas e erros:__ `Define#5696, Luan Devecchi.CB#6844, iPower#4714, WalisonBR#6270.`
 - __Discord Guilherme Lima:__ *`Guilherme Lima 👑#2384`*
 - __Discord__ [{ Code Building }](https://discord.gg/tDbJQ4K)
 
