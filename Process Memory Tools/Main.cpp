@@ -53,7 +53,8 @@
 //                              - Program Settings -
 using namespace std;
 
-DWORD PROCESS_ID;					// Está variável é responsável por armazenar o ID do Processo que você deseja acessar.
+DWORD PROCESS_ID;	// Está variável é responsável por armazenar o ID do Processo que você deseja acessar.
+HANDLE myHandle;	// Está variável é responsável por armazenar o Handle do Processo que você deseja acessar.
 BOOL  dwFlagThreadsStatus = true;	// Flag de Status de Threads (TRUE -> ResumeThreads | FALSE -> SuspendThreads)
 
 //
@@ -166,10 +167,12 @@ int main()
 {
 	// Apresenta uma UI de Welcome na inicialização
 	SetTitle_lithe(); // Você pode alterar o modelo de acordo com sua preferencia no header UI.h
-	
+
 	// Declarando o Process Memory Tools
-	const char PROCESS_NAME[] = "Gw2-64.exe";		// Digite o nome do seu processo.
+	const char PROCESS_NAME[] = "Gw2-64.exe";	// Digite o nome do seu processo.
 	PROCESS_ID = GetProcessID(PROCESS_NAME);	// Pega o PID do processo especificado.
+	myHandle = GetProcessHandle(PROCESS_ID);	// Pega o Handle do processo especificado.
+
 
 	if (PROCESS_ID == 0) {						// Verifica se o processo existe.
 		printf(" O processo '%s' não está em execução, abra e tente novamente!", PROCESS_NAME);
@@ -178,7 +181,7 @@ int main()
 	}
 
 	printf("Processo encontrado!\nNome: %s\t\tPID: %d\n", PROCESS_NAME, PROCESS_ID);
-	
+
 	// Inicia Hotkeys Para Pausar e Retomar as Threads do processo.
 	SuspendThread();
 	ResumeThread();
@@ -193,13 +196,19 @@ int main()
 		float speed = 6;
 		// Calcula Inclinações e Velocidade
 
-		if (GetAsyncKeyState(VK_SHIFT) < 0) {
-			printf("Apertou SHIFT!\n");
+		printf("Fly Mode: Ativado.\n");
+		BYTE nop[] = { 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 };
+		WriteProcess(myHandle, assembleVoar_adr, nop, sizeof(nop));
 
-			WriteProcess(PROCESS_ID, coorZ_adr, ReadProcess<float>(PROCESS_ID, coorZ_adr) - speed);
-		}
+
+		printf("Fly Mode: Desativado.\n");
+		BYTE restauraNop[] = { 0x0F, 0x29, 0x81, 0x20, 0x01, 0x00, 0x00 };
+		WriteProcess(myHandle, assembleVoar_adr, restauraNop, sizeof(restauraNop));
+
+
 	}
-
 	
-	getchar();									// Espera até que alguma tecla seja pressionada.
+	getchar();
+	CloseHandle(myHandle);
+	return 0;
 }
