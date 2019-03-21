@@ -59,7 +59,7 @@ using namespace std;
 
 #pragma region Prototipagem 
 template<typename T> T ReadProcess(HANDLE _ProcessHandle, uintptr_t _BaseAddress);
-uintptr_t GetPointerBaseAddress(DWORD _ProcessID, HANDLE _ProcessHandle, const char _MooduleBase[], uintptr_t _Pointer, vector<uintptr_t> &_Offsets);
+uintptr_t GetPointerBaseAddress(DWORD _ProcessID, HANDLE _ProcessHandle, const char _MooduleBase[], uintptr_t _Pointer, vector<uintptr_t>& _Offsets);
 #pragma endregion
 
 //
@@ -189,7 +189,7 @@ uintptr_t GetModuleBaseSize(DWORD _ProcessID, const char _ModuleName[]) {
 }
 
 //		• Get base address de um Ponteiro especificado
-uintptr_t GetPointerBaseAddress(DWORD _ProcessID, HANDLE _ProcessHandle, const char _MooduleBase[], uintptr_t _Pointer, vector<uintptr_t> &_Offsets) {
+uintptr_t GetPointerBaseAddress(DWORD _ProcessID, HANDLE _ProcessHandle, const char _MooduleBase[], uintptr_t _Pointer, const vector<uintptr_t>& _Offsets) {
 	uintptr_t Retorno = 0;
 	int tamanho = _Offsets.size();
 
@@ -214,7 +214,7 @@ uintptr_t GetPointerBaseAddress(DWORD _ProcessID, HANDLE _ProcessHandle, const c
 	}
 	return Retorno;
 }
-uintptr_t GetPointerBaseAddress(DWORD _ProcessID, const char _MooduleBase[], uintptr_t _Pointer, vector<uintptr_t> &_Offsets) {
+uintptr_t GetPointerBaseAddress(DWORD _ProcessID, const char _MooduleBase[], uintptr_t _Pointer, const vector<uintptr_t> & _Offsets) {
 	uintptr_t Retorno = 0;
 	int tamanho = _Offsets.size();
 	HANDLE processHandle = GetProcessHandle(_ProcessID);
@@ -252,9 +252,9 @@ void SuspendThreads(DWORD _ProcessID) {
 		while (Retorno)
 		{
 			if (TE.th32OwnerProcessID == _ProcessID) {
-				HANDLE THAccess = OpenThread(THREAD_SUSPEND_RESUME, FALSE, TE.th32ThreadID); // dwDesiredAccess_THREAD_SUSPEND_RESUME
-				SuspendThread(THAccess);
-				CloseHandle(THAccess);
+				HANDLE ThreadAccess = OpenThread(THREAD_SUSPEND_RESUME, FALSE, TE.th32ThreadID); // dwDesiredAccess_THREAD_SUSPEND_RESUME
+				SuspendThread(ThreadAccess);
+				CloseHandle(ThreadAccess);
 			}
 			Retorno = Thread32Next(HandleSnapshot, &TE);
 		}
@@ -272,9 +272,9 @@ void ResumeThreads(DWORD _ProcessID) {
 		while (Retorno)
 		{
 			if (TE.th32OwnerProcessID == _ProcessID) {
-				HANDLE THAccess = OpenThread(THREAD_SUSPEND_RESUME, FALSE, TE.th32ThreadID); // dwDesiredAccess_THREAD_SUSPEND_RESUME
-				ResumeThread(THAccess);
-				CloseHandle(THAccess);
+				HANDLE ThreadAccess = OpenThread(THREAD_SUSPEND_RESUME, FALSE, TE.th32ThreadID); // dwDesiredAccess_THREAD_SUSPEND_RESUME
+				ResumeThread(ThreadAccess);
+				CloseHandle(ThreadAccess);
 			}
 			Retorno = Thread32Next(HandleSnapshot, &TE);
 		}
@@ -303,21 +303,11 @@ template<typename T> T ReadProcess(DWORD _ProcessID, uintptr_t _BaseAddress) {
 	return Retorno;
 }
 //		• Write Process Memory
-/*
-void WriteProcess(HANDLE _ProcessHandle, uintptr_t _BaseAddress, uintptr_t _buffer) {
+template<typename T> void WriteProcess(HANDLE _ProcessHandle, uintptr_t _BaseAddress, T _buffer) {
 	//SIZE_T NumberOfBytesToRead = 4;
 	SIZE_T NumberOfBytesToRead = sizeof(_buffer);
 	WriteProcessMemory(_ProcessHandle, (LPVOID)_BaseAddress, &_buffer, NumberOfBytesToRead, NULL);
 }
-void WriteProcess(DWORD _ProcessID, uintptr_t _BaseAddress, uintptr_t _buffer) {
-	//SIZE_T NumberOfBytesToRead = 4;
-	HANDLE processHandle = GetProcessHandle(_ProcessID);
-	SIZE_T NumberOfBytesToRead = sizeof(_buffer);
-	WriteProcessMemory(processHandle, (LPVOID)_BaseAddress, &_buffer, NumberOfBytesToRead, NULL);
-	CloseHandle(processHandle); // Fecha o Handle aberto
-}
-*/
-
 template<typename T> void WriteProcess(DWORD _ProcessID, uintptr_t _BaseAddress, T _buffer) {
 	//SIZE_T NumberOfBytesToRead = 4;
 	HANDLE processHandle = GetProcessHandle(_ProcessID);
@@ -325,3 +315,14 @@ template<typename T> void WriteProcess(DWORD _ProcessID, uintptr_t _BaseAddress,
 	WriteProcessMemory(processHandle, (LPVOID)_BaseAddress, &_buffer, NumberOfBytesToRead, NULL);
 	CloseHandle(processHandle); // Fecha o Handle aberto
 }
+
+template<typename T> bool  WriteProcess(HANDLE _ProcessHandle, uintptr_t _BaseAddress, T * _buffer, SIZE_T _NumberOfBytesToRead) {
+	return WriteProcessMemory(_ProcessHandle, (LPVOID)_BaseAddress, _buffer, _NumberOfBytesToRead, NULL);
+}
+template<typename T> bool  WriteProcess(DWORD _ProcessID, uintptr_t _BaseAddress, T * _buffer, SIZE_T _NumberOfBytesToRead) {
+	HANDLE processHandle = GetProcessHandle(_ProcessID);
+	bool retorno = WriteProcessMemory(processHandle, (LPVOID)_BaseAddress, _buffer, _NumberOfBytesToRead, NULL);
+	CloseHandle(processHandle); // Fecha o Handle aberto
+	return retorno;
+}
+

@@ -136,39 +136,29 @@ void HotkeyPressThread() {
 
 
 // Endereços das coordenadas do player
-vector<uintptr_t> coorX_adr_offsets;
 uintptr_t coorX_adr;
-
-vector<uintptr_t> coorY_adr_offsets;
 uintptr_t coorY_adr;
-
-vector<uintptr_t> coorZ_adr_offsets;
 uintptr_t coorZ_adr;
 
 // Endereços das coordenadas da camera
-vector<uintptr_t> cameX_adr_offsets;
 uintptr_t cameX_adr;
-
-vector<uintptr_t> cameY_adr_offsets;
 uintptr_t cameY_adr;
+
+// Função Assemble
+uintptr_t assembleVoar_adr;
 
 void GetEnderecos() {
 	// Endereços das coordenadas do player
-	coorX_adr_offsets = { 0xE8, 0x90, 0x48, 0xE0, 0x120 };
-	coorX_adr = GetPointerBaseAddress(PROCESS_ID, "Gw2-64.exe", 0x020C6E78, coorX_adr_offsets);
-
-	coorY_adr_offsets = { 0xE8, 0x90, 0x48, 0xE0, 0x124 };
-	coorY_adr = GetPointerBaseAddress(PROCESS_ID, "Gw2-64.exe", 0x020C6E78, coorY_adr_offsets);
-
-	coorZ_adr_offsets = { 0xE8, 0x90, 0x48, 0xE0, 0x128 };
-	coorZ_adr = GetPointerBaseAddress(PROCESS_ID, "Gw2-64.exe", 0x020C6E78, coorZ_adr_offsets);
+	coorX_adr = GetPointerBaseAddress(PROCESS_ID, "Gw2-64.exe", 0x02193218, { 0x48, 0x98, 0x38, 0x80, 0x120 });
+	coorY_adr = GetPointerBaseAddress(PROCESS_ID, "Gw2-64.exe", 0x02193218, { 0x48, 0x98, 0x38, 0x80, 0x124 });
+	coorZ_adr = GetPointerBaseAddress(PROCESS_ID, "Gw2-64.exe", 0x002193218, { 0x48, 0x98, 0x38, 0x80, 0x128 });
 
 	// Endereços das coordenadas da camera
-	cameX_adr_offsets = { 0x98, 0x1A8, 0x128, 0x120 };
-	cameX_adr = GetPointerBaseAddress(PROCESS_ID, "Gw2-64.exe", 0x020D4D48, cameX_adr_offsets);
+	cameX_adr = GetPointerBaseAddress(PROCESS_ID, "Gw2-64.exe", 0x020D4EC8, { 0x58 });
+	cameY_adr = GetPointerBaseAddress(PROCESS_ID, "Gw2-64.exe", 0x020D4EC8, { 0x7C });
 
-	cameY_adr_offsets = { 0x98, 0x1A8, 0x128, 0x140 };
-	cameY_adr = GetPointerBaseAddress(PROCESS_ID, "Gw2-64.exe", 0x020D4D48, cameY_adr_offsets);
+	// Função Assemble
+	assembleVoar_adr = GetModuleBaseAddress(PROCESS_ID, "Gw2-64.exe") + 0x136FCE3;
 }
 
 
