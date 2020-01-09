@@ -1,9 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.421
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28809.33
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Process Memory Tools", "Process Memory Tools\Process Memory Tools.vcxproj", "{90ED3F43-B252-4018-B670-131AEE3484A1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{70CA72A7-DB36-412D-A95D-B3DD26CADAD6} = {70CA72A7-DB36-412D-A95D-B3DD26CADAD6}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MemoryTools", "MemoryTools\MemoryTools.vcxproj", "{70CA72A7-DB36-412D-A95D-B3DD26CADAD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +26,14 @@ Global
 		{90ED3F43-B252-4018-B670-131AEE3484A1}.Release|x64.Build.0 = Release|x64
 		{90ED3F43-B252-4018-B670-131AEE3484A1}.Release|x86.ActiveCfg = Release|Win32
 		{90ED3F43-B252-4018-B670-131AEE3484A1}.Release|x86.Build.0 = Release|Win32
+		{70CA72A7-DB36-412D-A95D-B3DD26CADAD6}.Debug|x64.ActiveCfg = Debug|x64
+		{70CA72A7-DB36-412D-A95D-B3DD26CADAD6}.Debug|x64.Build.0 = Debug|x64
+		{70CA72A7-DB36-412D-A95D-B3DD26CADAD6}.Debug|x86.ActiveCfg = Debug|Win32
+		{70CA72A7-DB36-412D-A95D-B3DD26CADAD6}.Debug|x86.Build.0 = Debug|Win32
+		{70CA72A7-DB36-412D-A95D-B3DD26CADAD6}.Release|x64.ActiveCfg = Release|x64
+		{70CA72A7-DB36-412D-A95D-B3DD26CADAD6}.Release|x64.Build.0 = Release|x64
+		{70CA72A7-DB36-412D-A95D-B3DD26CADAD6}.Release|x86.ActiveCfg = Release|Win32
+		{70CA72A7-DB36-412D-A95D-B3DD26CADAD6}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

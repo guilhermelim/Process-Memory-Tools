@@ -12,14 +12,7 @@
 // TODO: adicione cabeçalhos que você deseja pré-compilar aqui
 #pragma once
 #include "targetver.h"
-
-#include <stdio.h>
-#include <tchar.h>
-
-// Incluedes Padrões para Funcionamento correto do Main.cpp
+#include <vector>
 #include <iostream>
-#include <Windows.h>
-#include <thread>
-
 
 #endif //PCH_H
