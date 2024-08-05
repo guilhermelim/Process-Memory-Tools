@@ -1,18 +1,107 @@
+//#define _USE_MATH_DEFINES
+//#define D_USE_MATH_DEFINES
+//#include <cmath>
 #include <iostream>
-#include <thread>  // Inclua este cabeçalho para std::this_thread
-#include <chrono>  // Inclua este cabeçalho para std::chrono
+#include <thread>
+#include <chrono>
+#include <cmath>
+
 #include "memory.h"
+#include "fly_mode.h"
+#include "Converter.h"
 
-int main() {
-	std::vector<ProcessInfo> processes = listProcesses();
+void updatePosition(DWORD processId, uintptr_t xAddress, uintptr_t yAddress, uintptr_t zAddress, uintptr_t camXAddress, uintptr_t camYAddress) {
+	HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, processId);
 
-	std::cout << "Listing all processes:" << std::endl;
-	for (const auto& process : processes) {
-		std::cout << "Process ID: " << process.id
-			<< ", Name: " << process.name << std::endl;
+	float speed = 1.4f;
+	
+	// Read and convert camera values
+	float camX = readProcess<float>(hProcess, camXAddress);
+	float camY = readProcess<float>(hProcess, camYAddress);
+	float camXDegrees = Converter::radiansToDegrees(camX);
+	float camYDegrees = Converter::scaleToDegrees(camY, -1.5f, 1.5f, -90.0f, 90.0f);
+
+	auto readAndValidate = [&](uintptr_t address) -> std::optional<float> {
+		float value = readProcess<float>(hProcess, address);
+		return std::isnan(value) ? std::optional<float>{} : value;
+	};
+
+	// Check if keys are pressed
+    bool isWPressed = (GetAsyncKeyState('W') & 0x8000) != 0;
+    bool isSPressed = (GetAsyncKeyState('S') & 0x8000) != 0;
+    bool isAPressed = (GetAsyncKeyState('A') & 0x8000) != 0;
+    bool isDPressed = (GetAsyncKeyState('D') & 0x8000) != 0;
+    bool isShiftPressed = (GetAsyncKeyState(VK_SHIFT) & 0x8000) != 0;
+    bool isSpacePressed = (GetAsyncKeyState(VK_SPACE) & 0x8000) != 0;
+
+    if (isWPressed) {
+        //std::cout << "W is pressed" << std::endl;
+		auto xValue = readAndValidate(xAddress);
+		auto yValue = readAndValidate(yAddress);
+		auto zValue = readAndValidate(zAddress);
+		if (xValue && yValue && zValue) {
+			Coordinates<float> newCoords = flyMode(*xValue, *yValue, *zValue, camXDegrees, camYDegrees, speed, FORWARD);			
+			writeProcess(hProcess, xAddress, newCoords.x);
+			writeProcess(hProcess, yAddress, newCoords.y);
+			writeProcess(hProcess, zAddress, newCoords.z);
+		}
+    }
+    if (isSPressed) {
+		//std::cout << "S is pressed" << std::endl;
+		auto xValue = readAndValidate(xAddress);
+		auto yValue = readAndValidate(yAddress);
+		auto zValue = readAndValidate(zAddress);
+		if (xValue && yValue && zValue) {
+			Coordinates newCoords = flyMode(*xValue, *yValue, *zValue, camXDegrees, camYDegrees, speed, BACKWARD);
+			writeProcess(hProcess, xAddress, newCoords.x);
+			writeProcess(hProcess, yAddress, newCoords.y);
+			writeProcess(hProcess, zAddress, newCoords.z);
+		}
+    }
+	if (isAPressed) {
+		//std::cout << "A is pressed" << std::endl;
+		auto xValue = readAndValidate(xAddress);
+		auto yValue = readAndValidate(yAddress);
+		auto zValue = readAndValidate(zAddress);
+		if (xValue && yValue && zValue) {
+			Coordinates newCoords = flyMode(*xValue, *yValue, *zValue, camXDegrees, camYDegrees, speed, LEFT);
+			writeProcess(hProcess, xAddress, newCoords.x);
+			writeProcess(hProcess, yAddress, newCoords.y);
+			writeProcess(hProcess, zAddress, newCoords.z);
+		}
 	}
+    if (isDPressed) {
+		//std::cout << "D is pressed" << std::endl;
+		auto xValue = readAndValidate(xAddress);
+		auto yValue = readAndValidate(yAddress);
+		auto zValue = readAndValidate(zAddress);
+		if (xValue && yValue && zValue) {
+			Coordinates newCoords = flyMode(*xValue, *yValue, *zValue, camXDegrees, camYDegrees, speed, RIGHT);
+			writeProcess(hProcess, xAddress, newCoords.x);
+			writeProcess(hProcess, yAddress, newCoords.y);
+			writeProcess(hProcess, zAddress, newCoords.z);
+		}
+    }
+    if (isShiftPressed) {
+		//std::cout << "Shift is pressed" << std::endl;
+		auto yValue = readAndValidate(yAddress);
+		if (yValue) {
+			writeProcess(hProcess, yAddress, *yValue - speed);
+		}
+    }
+    if (isSpacePressed) {
+		//std::cout << "Space is pressed" << std::endl;
+		auto yValue = readAndValidate(yAddress);
+		if (yValue) {
+			writeProcess(hProcess, yAddress, *yValue + (speed));
+		}
+    }       
+	
+	CloseHandle(hProcess);
+}
 
-	std::string processName = "Notepad.exe";
+int main() {	
+	std::string processName = "thedivision.exe";
 	HANDLE hProcess = getProcessHandleByName(processName);
 	DWORD idProcess = getProcessId(processName);
 
@@ -27,86 +116,60 @@ int main() {
 	if (idProcess != 0) {
 		std::cout << "Id for process " << processName << ": " << idProcess << std::endl;
 
-		// Listar e exibir módulos do processo
-		std::vector<ModuleInfo> modules = listModules(idProcess);
-		std::cout << "Listing modules for process " << processName << ":" << std::endl;
-		for (const auto& module : modules) {
-			std::cout << "Module Name: " << module.name
-				<< ", Base Address: " << std::hex << module.baseAddress
-				<< ", Base Size: " << std::dec << module.baseSize << " bytes" << std::endl;
-		}
-
-		// Buscar um módulo específico
-		std::string moduleName = "ntdll.dll"; // Nome do módulo que você quer obter informações
-		ModuleInfo moduleInfo = getProcessModuleByName(idProcess, moduleName);
-		if (!moduleInfo.name.empty()) {
-			std::cout << "Module Name: " << moduleInfo.name
-				<< ", Base Address: " << std::hex << moduleInfo.baseAddress
-				<< ", Base Size: " << std::dec << moduleInfo.baseSize << " bytes" << std::endl;
-		}
-		else {
-			std::cout << "Module " << moduleName << " not found in process " << processName << std::endl;
-		}
-
-		// Exemplo de leitura de um valor inteiro de 4 bytes da memória do processo		
-		uintptr_t address = 0xF0AF3E9880; // Endereço real deve ser especificado		
-		int value = readProcess<int>(idProcess, address);
-		std::cout << "Value read from process memory at address " << std::hex << address
-			<< ": " << std::dec << value << std::endl;
-
-		// Exemplo de leitura de um valor de ponto flutuante de 4 bytes da memória do processo
-		float floatValue = readProcess<float>(idProcess, 0x20394352F10);
-		std::cout << "Float value read from process memory at address " << std::hex << address << ": " << floatValue << std::endl;
-
-		// Exemplo de escrita de um valor inteiro de 4 bytes na memória do processo
-		int newValue = 10;
-		bool writeSuccess = writeProcess(idProcess, address, newValue);
-		if (writeSuccess) {
-			std::cout << "Successfully wrote value " << newValue << " to address " << std::hex << address << std::endl;
-		}
-		else {
-			std::cout << "Failed to write value to address " << std::hex << address << std::endl;
-		}
-
-		// Exemplo de escrita de um array de bytes (hex) na memória do processo
-		BYTE nop[] = { 0x90, 0x90, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x8B, 0x6E };
-		writeSuccess = writeProcess(idProcess, address, nop);
-		if (writeSuccess) {
-			std::cout << "Successfully wrote nop array to address " << std::hex << address << std::endl;
-		}
-		else {
-			std::cout << "Failed to write nop array to address " << std::hex << address << std::endl;
-		}
-
-		// Esperar 5 segundos antes de restaurar o valor original
-		std::this_thread::sleep_for(std::chrono::seconds(5));
-
-		BYTE restauraNop[] = { 0x0A, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x8B, 0x6E };
-		writeSuccess = writeProcess(idProcess, address, restauraNop);
-		if (writeSuccess) {
-			std::cout << "Successfully restored nop array at address " << std::hex << address << std::endl;
-		}
-		else {
-			std::cout << "Failed to restore nop array at address " << std::hex << address << std::endl;
-		}
-
-		// Exemplo de uso do getPointerAddress
-		std::vector<uintptr_t> offsets = { 0xA8, 0x20, 0x38, 0x260, 0x218, 0xC80, 0x7B0 };
-		uintptr_t pointerAddress = getPointerAddress(idProcess, "Microsoft.UI.Xaml.dll", 0x00583410, offsets);
-		std::cout << "Pointer address calculated: " << std::hex << std::uppercase << pointerAddress << std::endl;
-
-		// Exemplo de uso de getPointerAddress com endereço direto
-		ModuleInfo moduleTest = getProcessModuleByName(idProcess, "Microsoft.UI.Xaml.dll");
-		if (moduleTest.name.empty()) {
-			std::cerr << "Module Microsoft.UI.Xaml.dll not found in process with ID " << idProcess << std::endl;
-			return 0;
-		}
-		uintptr_t baseAddressTest = moduleTest.baseAddress + 0x00583410;
-		uintptr_t pointerAddressWithAddress = getPointerAddress(idProcess, baseAddressTest, { 0xA8, 0x20, 0x38, 0x260, 0x218, 0xC80, 0x7B0 });
-		std::cout << "Pointer address calculated with address: " << std::hex << std::uppercase << pointerAddressWithAddress << std::endl;
 	}
 	else {
 		std::cout << "Failed to obtain id for process " << processName << std::endl;
+	}
+
+	std::vector<uintptr_t> offsetsPlayerPosition = { 0x228, 0x50, 0x1D0, 0x220, 0x278 };
+	uintptr_t playerPositionAddress = getPointerAddress(idProcess, "TheDivision.exe", 0x04508B80, offsetsPlayerPosition);
+	
+	std::vector<uintptr_t> offsetsCamera = { 0x10, 0x2D0, 0x18, 0xB0, 0x78 };
+	uintptr_t cameraAddress = getPointerAddress(idProcess, "TheDivision.exe", 0x0477FCF0, offsetsCamera);
+
+	uintptr_t xAddress = getPointerAddress(idProcess, playerPositionAddress, { 0x70 });
+	uintptr_t yAddress = getPointerAddress(idProcess, playerPositionAddress, { 0x74 });
+	uintptr_t zAddress = getPointerAddress(idProcess, playerPositionAddress, { 0x78 });
+
+	uintptr_t camXAddress = getPointerAddress(idProcess, cameraAddress, { 0xC0 });
+	uintptr_t camYAddress = getPointerAddress(idProcess, cameraAddress, { 0xC4 });
+
+	uintptr_t moveAssemblyAddress = getProcessModuleByName(idProcess, "TheDivision.exe").baseAddress + 0x22D5FC3;
+
+	std::cout << "Address xAddress calculated: " << std::hex << std::uppercase << xAddress << std::endl;
+	std::cout << "Address camXAddress calculated: " << std::hex << std::uppercase << camXAddress << std::endl;
+	std::cout << "Address moveAssemblyAddress calculated: " << std::hex << std::uppercase << moveAssemblyAddress << std::endl;
+
+	int timerInterval = 100;
+
+	bool flyModeActive = false;
+	bool prevKeyState = false;
+
+	while (true) {		
+		bool currentKeyState = (GetAsyncKeyState('Y') & 0x8000) != 0;
+
+		if (currentKeyState && !prevKeyState) { // Detect key press event
+			flyModeActive = !flyModeActive; // Toggle fly mode
+			std::cout << "Fly Mode " << (flyModeActive ? "Activated" : "Deactivated") << std::endl;
+
+			/*if (flyModeActive) {
+				BYTE nop[] = { 0x90, 0x90, 0x90, 0x90 };
+				writeProcess(idProcess, moveAssemblyAddress, nop);
+			}
+			else {
+				BYTE moveAssemblyHex[] = { 0x41, 0x0F, 0x29, 0x06 };
+				writeProcess(idProcess, moveAssemblyAddress, moveAssemblyHex);	
+			}*/
+		}
+
+		prevKeyState = currentKeyState; // Update previous key state
+
+		if (flyModeActive) {			
+			updatePosition(idProcess, xAddress, yAddress, zAddress, camXAddress, camYAddress);
+		}	
+
+		std::this_thread::sleep_for(std::chrono::milliseconds(timerInterval));
+		//system("cls");
 	}
 
 	return 0;

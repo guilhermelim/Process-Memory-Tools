@@ -65,7 +65,26 @@ T readProcess(DWORD processId, uintptr_t address) {
     return result;
 }
 
-// Função template para escrever dados na memória de um processo
+template <typename T>
+T readProcess(HANDLE hProcess, uintptr_t address) {
+    if (hProcess == NULL) {
+        std::cerr << "Invalid process handle." << std::endl;
+        return T(); // Retorna um valor padrão para o tipo T
+    }
+
+    T result = T();
+    SIZE_T bytesRead;
+    BOOL success = ReadProcessMemory(hProcess, reinterpret_cast<LPCVOID>(address), &result, sizeof(T), &bytesRead);
+
+    if (!success || bytesRead != sizeof(T)) {
+        std::cerr << "Failed to read memory. Address: " << std::hex << address << std::dec << std::endl;
+        result = T();
+    }
+
+    return result;
+}
+
+// Função template para escrever em um bloco de memória de um processo
 template <typename T>
 bool writeProcess(DWORD processId, uintptr_t baseAddress, const T& data);
 
@@ -88,6 +107,25 @@ bool writeProcess(DWORD processId, uintptr_t baseAddress, const T& data) {
     }
 
     CloseHandle(hProcess);
+    return true;
+}
+
+template <typename T>
+bool writeProcess(HANDLE hProcess, uintptr_t baseAddress, const T& data) {
+    if (hProcess == NULL) {
+        std::cerr << "Invalid process handle." << std::endl;
+        return false;
+    }
+
+    SIZE_T dataSize = sizeof(T);
+    SIZE_T bytesWritten;
+    BOOL success = WriteProcessMemory(hProcess, (LPVOID)baseAddress, &data, dataSize, &bytesWritten);
+
+    if (!success || bytesWritten != dataSize) {
+        std::cerr << "Failed to write memory. Address: " << std::hex << baseAddress << std::dec << std::endl;
+        return false;
+    }
+
     return true;
 }
 

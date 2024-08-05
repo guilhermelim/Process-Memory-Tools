@@ -19,6 +19,15 @@
     <Filter Include="Arquivos de Origem\src\memory">
       <UniqueIdentifier>{64a49b30-3f77-4a97-a995-8ba7edf41747}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Arquivos de Origem\src\memory\utils">
+      <UniqueIdentifier>{3707e66d-8a2a-4400-ad7b-502d564c144f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Origem\src\functions">
+      <UniqueIdentifier>{006c795a-83a6-4829-bb83-c65d5b345580}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Origem\src\functions\fly_mode">
+      <UniqueIdentifier>{f376c075-bc53-4910-becf-b1f7d5d01239}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -27,10 +36,16 @@
     <ClCompile Include="memory.cpp">
       <Filter>Arquivos de Origem\src\memory</Filter>
     </ClCompile>
+    <ClCompile Include="Converter.h">
+      <Filter>Arquivos de Origem\src\memory\utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="memory.h">
       <Filter>Arquivos de Origem\src\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="fly_mode.h">
+      <Filter>Arquivos de Origem\src\functions\fly_mode</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -5,7 +5,7 @@
 #include <string>
 
 #include "memory.h"
-
+#include "Converter.h"
 
 std::vector<ProcessInfo> listProcesses() {
     std::vector<ProcessInfo> processes;
@@ -32,7 +32,7 @@ std::vector<ProcessInfo> listProcesses() {
     do {
         ProcessInfo pInfo;
         pInfo.id = pe32.th32ProcessID;
-        pInfo.name = std::string(pe32.szExeFile);
+        pInfo.name = Converter::toString(pe32.szExeFile);
        
         processes.push_back(pInfo);
     } while (Process32Next(hProcessSnap, &pe32));
@@ -95,7 +95,7 @@ std::vector<ModuleInfo> listModules(DWORD processId) {
     // Adicionar módulos ao vetor
     do {
         ModuleInfo mInfo;
-        mInfo.name = me32.szModule;
+        mInfo.name = Converter::toString(me32.szModule);
         mInfo.baseAddress = reinterpret_cast<uintptr_t>(me32.modBaseAddr);
         mInfo.baseSize = me32.modBaseSize;
 
